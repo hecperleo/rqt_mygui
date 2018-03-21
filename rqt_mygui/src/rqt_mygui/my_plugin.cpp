@@ -71,9 +71,12 @@ void MyPlugin::click_pushButton(){
   }
   std::cout << '\n';*/
   switch(resolucion){
-    case 1: test("Resolucion 1"); resolucion++; break;
-    case 2: test("Resolucion 2"); resolucion--; break;
+    case 1: test("Resolucion 1"); resolucion++; new QListWidgetItem(tr("Hola"), ui_.listWidget_2); break;
+    case 2: test("Resolucion 2"); resolucion--; ui_.listWidget_2->takeItem(1); break;
   }
+  //new QListWidgetItem(tr("Hola"), ui_.listWidget_2);
+  //ui_.listWidget_2->takeItem(1);
+
   //ui_.listWidget_2->addItem(QListWidgetItem);
 }
 
