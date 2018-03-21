@@ -5,7 +5,8 @@
 #include <QMetaObject>
 #include <Qt>
 #include <ros/ros.h>
-#include "nav_msgs/Path.h"
+//#include "nav_msgs/Path.h"
+#include "sensor_msgs/PointCloud2.h"
 
 namespace rqt_mygui
 {
@@ -32,14 +33,15 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   context.addWidget(widget_);
 
   ros::start();
-  flagSubvectorT = true;
+  //flagSubvectorT = true;
   resolucion = 1;
-  std::cout << "[ TEST] " << '\n';
+  std::cout << "[ TEST] RQT start" << '\n';
 
   // CONNECT
   connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
   // SUBSCRIBERS
-  setup_sub = n_.subscribe("vectorT", 0, &MyPlugin::setup_callback, this);
+  //setup_sub = n_.subscribe("vectorT", 0, &MyPlugin::setup_callback, this);
+  velodyne_sub = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
 }
 
 void MyPlugin::shutdownPlugin()
@@ -63,22 +65,28 @@ void MyPlugin::restoreSettings(const qt_gui_cpp::Settings& plugin_settings,
 // --------------------------------------------------------------------------
 
 void MyPlugin::click_pushButton(){
-  std::cout << "[ TEST] vector = ";
+  /*std::cout << "[ TEST] vector = ";
   for (int i = 0; i<vectorT.size(); i++){
     std::cout << vectorT[i] << " ";
   }
-  std::cout << '\n';
+  std::cout << '\n';*/
   switch(resolucion){
     case 1: test("Resolucion 1"); resolucion++; break;
     case 2: test("Resolucion 2"); resolucion--; break;
   }
+  //ui_.listWidget_2->addItem(QListWidgetItem);
 }
 
 void MyPlugin::test(QString niz){
 	ui_.label_3->setText(niz);
 }
 
-void MyPlugin::setup_callback(const nav_msgs::Path& msg){
+void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2& cloud){
+  ui_.label_widthValue->setText(QString::number(cloud.width, 'f', 1));
+  ui_.label_heightValue->setText(QString::number(cloud.height, 'f', 1)); 
+}
+
+/*void MyPlugin::setup_callback(const nav_msgs::Path& msg){
   if(flagSubvectorT == true){
 		for(int p = 0; p<msg.poses.size(); p++){
 			vectorT.push_back(msg.poses.at(p).pose.position.x);
@@ -86,7 +94,7 @@ void MyPlugin::setup_callback(const nav_msgs::Path& msg){
   }
   flagSubvectorT = false;
   return;
-}
+}*/
 
 // --------------------------------------------------------------------------
 

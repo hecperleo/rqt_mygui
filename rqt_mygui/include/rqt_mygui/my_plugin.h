@@ -22,7 +22,8 @@
 #include <QTextStream>
 #include <QButtonGroup>
 // TEST
-#include "nav_msgs/Path.h"
+//#include "nav_msgs/Path.h"
+#include "sensor_msgs/PointCloud2.h"
 
 
 namespace rqt_mygui
@@ -42,7 +43,8 @@ protected slots:
   virtual void click_pushButton();
 
 protected:
-  virtual void setup_callback(const nav_msgs::Path& msg);
+  //virtual void setup_callback(const nav_msgs::Path& msg);
+  virtual void velodyne_callback(const sensor_msgs::PointCloud2& cloud);
   virtual void test(QString niz);
 
   // Comment in to signal that the plugin has a way to configure it
@@ -54,10 +56,10 @@ private:
   // Node
   ros::NodeHandle n_;
   // Subscriber
-  ros::Subscriber setup_sub;
+  ros::Subscriber velodyne_sub;
   // Variables
-  std::vector<double> vectorT;
-  bool flagSubvectorT;
+  //std::vector<double> vectorT;
+  //bool flagSubvectorT;
   int resolucion;
 // --------------------------------------------------------------------------
 };
