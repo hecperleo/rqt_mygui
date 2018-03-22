@@ -41,10 +41,10 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
   // SUBSCRIBERS
   velodyne_sub   = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
-  resolution_sub = n_.subscribe("resolution", 0, &MyPlugin::resolution_callback, this);
+  //resolution_sub = n_.subscribe("resolution", 0, &MyPlugin::resolution_callback, this);
   imu_sub        = n_.subscribe("Euler_RPY", 0, &MyPlugin::imu_callback, this);
   // PUBLISHER
-  resolution 	= n_.advertise<std_msgs::Int8>("resolution", 1);
+  //resolution 	   = n_.advertise<std_msgs::Int8>("resolution", 1);
 }
 
 void MyPlugin::shutdownPlugin()
@@ -73,6 +73,7 @@ void MyPlugin::click_pushButton(){
     case 1: resolucion++; break;
     case 2: resolucion--; break;
   }
+  ui_.label_3->setText(QString("Resolución ") + QString::number(resolucion, 'f', 0));
 }
 
 void MyPlugin::test(QString niz){
@@ -84,19 +85,18 @@ void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2& cloud){
   ui_.label_heightValue->setText(QString::number((ros::Time::now().toSec()-begin), 'f', 1)); 
   cloudWidth = cloud.width;
   MyPlugin::update_list();
-  MyPlugin::update_resolution();
+  //MyPlugin::update_resolution();
 }
 
-void MyPlugin::resolution_callback(const std_msgs::Int8 msg){
+/*void MyPlugin::resolution_callback(const std_msgs::Int8 msg){
   ui_.label_3->setText(QString("Resolucion ") + QString::number(msg.data, 'f', 0));
-}
+}*/
 
 void MyPlugin::imu_callback(const euler_from_quaternion::Euler& msg){
   ui_.label_rollValue->setText(QString::number(msg.roll, 'f', 2));
   ui_.label_pitchValue->setText(QString::number(msg.pitch, 'f', 2));
   ui_.label_yawValue->setText(QString::number(msg.yaw, 'f', 2));
 }
-
 
 void MyPlugin::update_list(){
   QListWidgetItem* lwi = new QListWidgetItem();           // Crea el item "lwi"
@@ -113,11 +113,11 @@ void MyPlugin::update_list(){
   }
 }
 
-void MyPlugin::update_resolution(){
+/*void MyPlugin::update_resolution(){
   std_msgs::Int8 msg;
   msg.data = resolucion;
   resolution.publish(msg);
-}
+}*/
 
 // --------------------------------------------------------------------------
 

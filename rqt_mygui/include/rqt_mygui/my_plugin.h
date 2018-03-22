@@ -45,11 +45,11 @@ protected slots:
 
 protected:
   virtual void velodyne_callback(const sensor_msgs::PointCloud2& cloud);
-  virtual void resolution_callback(const std_msgs::Int8 msg);
+  //virtual void resolution_callback(const std_msgs::Int8 msg);
   virtual void imu_callback(const euler_from_quaternion::Euler& msg);
   virtual void test(QString niz);
   virtual void update_list();
-  virtual void update_resolution();
+  //virtual void update_resolution();
 
   // Comment in to signal that the plugin has a way to configure it
   // bool hasConfiguration() const;

@@ -55,7 +55,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>.</string>
+    <string>Resolución 1</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -218,8 +218,7 @@
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(204, 204, 204);
-background-color: rgb(209, 209, 209);</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
@@ -276,8 +275,7 @@ background-color: rgb(209, 209, 209);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(209, 209, 209);
-border-color: rgb(0, 0, 0);</string>
+    <string notr="true"/>
    </property>
    <property name="frameShape">
     <enum>QFrame::StyledPanel</enum>
