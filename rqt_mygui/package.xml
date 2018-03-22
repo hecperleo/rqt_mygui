@@ -44,6 +44,7 @@
   <build_depend>rqt_gui</build_depend>
   <build_depend>rqt_gui_cpp</build_depend>
   <build_depend>std_msgs</build_depend>
+  <build_depend>euler_from_quaternion</build_depend>
 
   <run_depend>libqt4-dev</run_depend>
   <run_depend>qt_build</run_depend>
@@ -51,6 +52,7 @@
   <run_depend>rqt_gui</run_depend>
   <run_depend>rqt_gui_cpp</run_depend>
   <run_depend>std_msgs</run_depend>
+  <run_depend>euler_from_quaternion</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

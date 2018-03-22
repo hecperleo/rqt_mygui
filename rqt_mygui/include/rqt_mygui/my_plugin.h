@@ -23,8 +23,8 @@
 #include <QTextStream>
 #include <QButtonGroup>
 // TEST
-//#include "nav_msgs/Path.h"
 #include "sensor_msgs/PointCloud2.h"
+#include "euler_from_quaternion/Euler.h"
 
 
 namespace rqt_mygui
@@ -46,6 +46,7 @@ protected slots:
 protected:
   virtual void velodyne_callback(const sensor_msgs::PointCloud2& cloud);
   virtual void resolution_callback(const std_msgs::Int8 msg);
+  virtual void imu_callback(const euler_from_quaternion::Euler& msg);
   virtual void test(QString niz);
   virtual void update_list();
   virtual void update_resolution();
@@ -59,7 +60,7 @@ private:
   // Node
   ros::NodeHandle n_;
   // Subscriber
-  ros::Subscriber velodyne_sub, resolution_sub;
+  ros::Subscriber velodyne_sub, resolution_sub, imu_sub;
   ros::Publisher resolution;
   // Variables
   //std::vector<double> vectorT;
