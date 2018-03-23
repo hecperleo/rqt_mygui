@@ -49,7 +49,7 @@ protected:
   virtual void imu_callback(const euler_from_quaternion::Euler& msg);
   virtual void test(QString niz);
   virtual void update_list();
-  //virtual void update_resolution();
+  virtual void resolution_pub();
 
   // Comment in to signal that the plugin has a way to configure it
   // bool hasConfiguration() const;
@@ -67,7 +67,7 @@ private:
   //bool flagSubvectorT;
   int resolucion;
   float cloudWidth;
-  double begin;
+  double updateTime;
   float time;
 // --------------------------------------------------------------------------
 };

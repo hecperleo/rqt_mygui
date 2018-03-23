@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>662</width>
+    <width>719</width>
     <height>847</height>
    </rect>
   </property>
@@ -80,7 +80,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_actualiza">
+  <widget class="QLabel" name="label_update">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -93,7 +93,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>Actualiza</string>
+    <string>Update</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -322,7 +322,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="label_heightValue">
+  <widget class="QLabel" name="label_updateValue">
    <property name="geometry">
     <rect>
      <x>490</x>
@@ -411,7 +411,7 @@
   <zorder>frame</zorder>
   <zorder>label_3</zorder>
   <zorder>label_roll</zorder>
-  <zorder>label_actualiza</zorder>
+  <zorder>label_update</zorder>
   <zorder>frame_3</zorder>
   <zorder>list_movil</zorder>
   <zorder>label_2</zorder>
@@ -423,7 +423,7 @@
   <zorder>frame_5</zorder>
   <zorder>frame_4</zorder>
   <zorder>label_pitchValue</zorder>
-  <zorder>label_heightValue</zorder>
+  <zorder>label_updateValue</zorder>
   <zorder>list_estatico</zorder>
   <zorder>frame_2</zorder>
   <zorder>label_widthValue</zorder>

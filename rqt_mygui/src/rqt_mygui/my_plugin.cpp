@@ -35,7 +35,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   context.addWidget(widget_);
 
   ros::start();
-  double begin = ros::Time::now().toSec();
+  double updateTime = ros::Time::now().toSec();
   resolucion = 1;
   // CONNECT
   connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
@@ -44,7 +44,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   //resolution_sub = n_.subscribe("resolution", 0, &MyPlugin::resolution_callback, this);
   imu_sub        = n_.subscribe("Euler_RPY", 0, &MyPlugin::imu_callback, this);
   // PUBLISHER
-  //resolution 	   = n_.advertise<std_msgs::Int8>("resolution", 1);
+  resolution 	   = n_.advertise<std_msgs::Int8>("resolution", 1);
 }
 
 void MyPlugin::shutdownPlugin()
@@ -74,6 +74,7 @@ void MyPlugin::click_pushButton(){
     case 2: resolucion--; break;
   }
   ui_.label_3->setText(QString("Resolución ") + QString::number(resolucion, 'f', 0));
+  MyPlugin::resolution_pub();
 }
 
 void MyPlugin::test(QString niz){
@@ -82,10 +83,9 @@ void MyPlugin::test(QString niz){
 
 void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2& cloud){
   ui_.label_widthValue->setText(QString::number(cloud.width, 'f', 1));
-  ui_.label_heightValue->setText(QString::number((ros::Time::now().toSec()-begin), 'f', 1)); 
+  ui_.label_updateValue->setText(QString::number((ros::Time::now().toSec()-updateTime), 'f', 1)); 
   cloudWidth = cloud.width;
   MyPlugin::update_list();
-  //MyPlugin::update_resolution();
 }
 
 /*void MyPlugin::resolution_callback(const std_msgs::Int8 msg){
@@ -102,22 +102,22 @@ void MyPlugin::update_list(){
   QListWidgetItem* lwi = new QListWidgetItem();           // Crea el item "lwi"
   lwi->setSizeHint(QSize(200, 20));                       // Se le da tamaño a lwi
   lwi->setTextAlignment(Qt::AlignCenter);                 // Todo lo escrito en lwi va a estar centrado
-  if((ros::Time::now().toSec()-begin) >= 2.0){            // Si han pasado 2 segundos
+  if((ros::Time::now().toSec()-updateTime) >= 2.0){       // Si han pasado 2 segundos
     if (cloudWidth > 27300){                              // Si la nube de puntos es mayor de 27300
       lwi->setText(QString::number(cloudWidth, 'f', 1));  // Introduce el valor de la nube de puntos en lwi
       ui_.list_movil->addItem(lwi);                       // Añade lwi a la lista "list_movil"
     } else if(cloudWidth < 27000){                        // Si es menor de 27000
       ui_.list_movil->takeItem(0);                        // Borra el primer lwi que se ha añadido
     }
-    begin = ros::Time::now().toSec();
+    updateTime = ros::Time::now().toSec();
   }
 }
 
-/*void MyPlugin::update_resolution(){
+void MyPlugin::resolution_pub(){
   std_msgs::Int8 msg;
   msg.data = resolucion;
   resolution.publish(msg);
-}*/
+}
 
 // --------------------------------------------------------------------------
 
