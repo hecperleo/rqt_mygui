@@ -9,6 +9,7 @@
 #include "sensor_msgs/PointCloud2.h"
 #include <std_msgs/Int8.h>
 #include "euler_from_quaternion/Euler.h"
+#include <geometry_msgs/PoseStamped.h>
 
 namespace rqt_mygui
 {
@@ -41,6 +42,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
   // SUBSCRIBERS
   velodyne_sub   = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
+  xyzVelodyne_sub   = n_.subscribe("velodyne_xyz", 0, &MyPlugin::xyzVelodyne_callback, this);
   //resolution_sub = n_.subscribe("resolution", 0, &MyPlugin::resolution_callback, this);
   imu_sub        = n_.subscribe("Euler_RPY", 0, &MyPlugin::imu_callback, this);
   // PUBLISHER
@@ -73,12 +75,12 @@ void MyPlugin::click_pushButton(){
     case 1: resolucion++; break;
     case 2: resolucion--; break;
   }
-  ui_.label_3->setText(QString("Resolución ") + QString::number(resolucion, 'f', 0));
+  ui_.label_resolutionValue->setText(QString("Resolución ") + QString::number(resolucion, 'f', 0));
   MyPlugin::resolution_pub();
 }
 
 void MyPlugin::test(QString niz){
-	ui_.label_3->setText(niz);
+	//ui_.label_resolutionValue->setText(niz);
 }
 
 void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2& cloud){
@@ -88,8 +90,14 @@ void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2& cloud){
   MyPlugin::update_list();
 }
 
+void MyPlugin::xyzVelodyne_callback(const geometry_msgs::PoseStamped& msg){
+  ui_.label_xVelodyneValue->setText(QString::number(msg.pose.position.x, 'f', 2));
+  ui_.label_yVelodyneValue->setText(QString::number(msg.pose.position.y, 'f', 2));
+  ui_.label_zVelodyneValue->setText(QString::number(msg.pose.position.z, 'f', 2));
+}
+
 /*void MyPlugin::resolution_callback(const std_msgs::Int8 msg){
-  ui_.label_3->setText(QString("Resolucion ") + QString::number(msg.data, 'f', 0));
+  ui_.label_resolutionValue->setText(QString("Resolucion ") + QString::number(msg.data, 'f', 0));
 }*/
 
 void MyPlugin::imu_callback(const euler_from_quaternion::Euler& msg){
@@ -108,6 +116,8 @@ void MyPlugin::update_list(){
       ui_.list_movil->addItem(lwi);                       // Añade lwi a la lista "list_movil"
     } else if(cloudWidth < 27000){                        // Si es menor de 27000
       ui_.list_movil->takeItem(0);                        // Borra el primer lwi que se ha añadido
+      //ui_.list_movil->sortOrder();
+      ui_.list_movil->sortItems(Qt::AscendingOrder);
     }
     updateTime = ros::Time::now().toSec();
   }
