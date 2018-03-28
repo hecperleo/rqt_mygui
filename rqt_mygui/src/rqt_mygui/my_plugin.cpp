@@ -37,7 +37,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   context.addWidget(widget_);
 
   ros::start();
-  updateTime = 0.2;
+  updateTime = 0.5;
   updateTimeList = ros::Time::now().toSec();
   updateTimeVelodyne = ros::Time::now().toSec();
   updateTimeXYZVelodyne = ros::Time::now().toSec();
