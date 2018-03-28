@@ -16,7 +16,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>390</x>
      <y>30</y>
      <width>153</width>
      <height>17</height>
@@ -83,7 +83,7 @@
   <widget class="QLabel" name="label_update">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>610</y>
      <width>91</width>
      <height>17</height>
@@ -211,7 +211,7 @@
   <widget class="QFrame" name="frame_6">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>570</y>
      <width>181</width>
      <height>71</height>
@@ -230,7 +230,7 @@
   <widget class="QLabel" name="label_testWidth">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>580</y>
      <width>91</width>
      <height>17</height>
@@ -249,7 +249,7 @@
   <widget class="QFrame" name="frame_5">
    <property name="geometry">
     <rect>
-     <x>505</x>
+     <x>565</x>
      <y>580</y>
      <width>60</width>
      <height>20</height>
@@ -287,7 +287,7 @@
   <widget class="QFrame" name="frame_4">
    <property name="geometry">
     <rect>
-     <x>505</x>
+     <x>565</x>
      <y>610</y>
      <width>60</width>
      <height>20</height>
@@ -325,7 +325,7 @@
   <widget class="QLabel" name="label_updateValue">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>550</x>
      <y>610</y>
      <width>91</width>
      <height>20</height>
@@ -344,7 +344,7 @@
   <widget class="QListWidget" name="list_estatico">
    <property name="geometry">
     <rect>
-     <x>360</x>
+     <x>390</x>
      <y>70</y>
      <width>252</width>
      <height>474</height>
@@ -370,7 +370,7 @@
   <widget class="QLabel" name="label_widthValue">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>550</x>
      <y>580</y>
      <width>91</width>
      <height>20</height>
@@ -408,7 +408,7 @@
   <widget class="QFrame" name="frame_8">
    <property name="geometry">
     <rect>
-     <x>505</x>
+     <x>565</x>
      <y>740</y>
      <width>60</width>
      <height>20</height>
@@ -424,7 +424,7 @@
   <widget class="QLabel" name="label_zVelodyneValue">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>550</x>
      <y>770</y>
      <width>91</width>
      <height>20</height>
@@ -443,7 +443,7 @@
   <widget class="QFrame" name="frame_9">
    <property name="geometry">
     <rect>
-     <x>505</x>
+     <x>565</x>
      <y>710</y>
      <width>60</width>
      <height>20</height>
@@ -459,7 +459,7 @@
   <widget class="QFrame" name="frame_10">
    <property name="geometry">
     <rect>
-     <x>399</x>
+     <x>459</x>
      <y>700</y>
      <width>181</width>
      <height>101</height>
@@ -478,7 +478,7 @@
   <widget class="QLabel" name="label_yVelodyne">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>740</y>
      <width>91</width>
      <height>17</height>
@@ -497,7 +497,7 @@
   <widget class="QLabel" name="label_xVelodyne">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>710</y>
      <width>91</width>
      <height>17</height>
@@ -516,7 +516,7 @@
   <widget class="QLabel" name="label_zVelodyne">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>770</y>
      <width>91</width>
      <height>17</height>
@@ -535,7 +535,7 @@
   <widget class="QLabel" name="label_xVelodyneValue">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>550</x>
      <y>710</y>
      <width>91</width>
      <height>20</height>
@@ -554,7 +554,7 @@
   <widget class="QFrame" name="frame_11">
    <property name="geometry">
     <rect>
-     <x>505</x>
+     <x>565</x>
      <y>770</y>
      <width>60</width>
      <height>20</height>
@@ -570,7 +570,7 @@
   <widget class="QLabel" name="label_yVelodyneValue">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>550</x>
      <y>740</y>
      <width>91</width>
      <height>20</height>
@@ -589,7 +589,7 @@
   <widget class="QLabel" name="label_velodyne">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>460</x>
      <y>680</y>
      <width>85</width>
      <height>17</height>
@@ -610,7 +610,7 @@
     <rect>
      <x>74</x>
      <y>680</y>
-     <width>41</width>
+     <width>81</width>
      <height>20</height>
     </rect>
    </property>
@@ -618,7 +618,261 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>IMU</string>
+    <string>IMU - Euler</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_quatValueZ">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>770</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_quatValueY">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>740</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_12">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>700</y>
+     <width>181</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::StyledPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_13">
+   <property name="geometry">
+    <rect>
+     <x>365</x>
+     <y>710</y>
+     <width>60</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_14">
+   <property name="geometry">
+    <rect>
+     <x>365</x>
+     <y>740</y>
+     <width>60</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_pitch_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>740</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>Y</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_yaw_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>770</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>Z</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_roll_2">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>710</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_15">
+   <property name="geometry">
+    <rect>
+     <x>365</x>
+     <y>770</y>
+     <width>60</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_IMU_2">
+   <property name="geometry">
+    <rect>
+     <x>264</x>
+     <y>680</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>IMU - Quaternion</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_quatValueX">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>710</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>X</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_yaw_3">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>800</y>
+     <width>91</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>W</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QFrame" name="frame_16">
+   <property name="geometry">
+    <rect>
+     <x>365</x>
+     <y>800</y>
+     <width>60</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_quatValueW">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>800</y>
+     <width>91</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>X</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -659,6 +913,20 @@
   <zorder>label_yVelodyneValue</zorder>
   <zorder>label_velodyne</zorder>
   <zorder>label_IMU</zorder>
+  <zorder>label_quatValueZ</zorder>
+  <zorder>label_quatValueY</zorder>
+  <zorder>frame_12</zorder>
+  <zorder>frame_13</zorder>
+  <zorder>frame_14</zorder>
+  <zorder>label_pitch_2</zorder>
+  <zorder>label_yaw_2</zorder>
+  <zorder>label_roll_2</zorder>
+  <zorder>frame_15</zorder>
+  <zorder>label_IMU_2</zorder>
+  <zorder>label_quatValueX</zorder>
+  <zorder>label_yaw_3</zorder>
+  <zorder>frame_16</zorder>
+  <zorder>label_quatValueW</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -10,6 +10,7 @@
 #include <std_msgs/Int8.h>
 #include "euler_from_quaternion/Euler.h"
 #include <geometry_msgs/PoseStamped.h>
+#include "sensor_msgs/Imu.h"
 
 namespace rqt_mygui
 {
@@ -36,15 +37,22 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   context.addWidget(widget_);
 
   ros::start();
-  double updateTime = ros::Time::now().toSec();
+  updateTime = 0.2;
+  updateTimeList = ros::Time::now().toSec();
+  updateTimeVelodyne = ros::Time::now().toSec();
+  updateTimeXYZVelodyne = ros::Time::now().toSec();
+  updateTimeImuEuler = ros::Time::now().toSec();
+  updateTimeImuQuat = ros::Time::now().toSec();
+
   resolucion = 1;
   // CONNECT
   connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
   // SUBSCRIBERS
-  velodyne_sub   = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
-  xyzVelodyne_sub   = n_.subscribe("velodyne_xyz", 0, &MyPlugin::xyzVelodyne_callback, this);
+  velodyne_sub    = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
+  xyzVelodyne_sub = n_.subscribe("velodyne_xyz", 0, &MyPlugin::xyzVelodyne_callback, this);
+  imuEuler_sub         = n_.subscribe("Euler_RPY", 0, &MyPlugin::imuEuler_callback, this);
+  imuQuat_sub         = n_.subscribe("imu/data", 0, &MyPlugin::imuQuat_callback, this);
   //resolution_sub = n_.subscribe("resolution", 0, &MyPlugin::resolution_callback, this);
-  imu_sub        = n_.subscribe("Euler_RPY", 0, &MyPlugin::imu_callback, this);
   // PUBLISHER
   resolution 	   = n_.advertise<std_msgs::Int8>("resolution", 1);
 }
@@ -75,7 +83,7 @@ void MyPlugin::click_pushButton(){
     case 1: resolucion++; break;
     case 2: resolucion--; break;
   }
-  ui_.label_resolutionValue->setText(QString("Resolución ") + QString::number(resolucion, 'f', 0));
+  ui_.label_resolutionValue->setText(QString(" ") + QString::number(resolucion, 'f', 0));
   MyPlugin::resolution_pub();
 }
 
@@ -84,33 +92,53 @@ void MyPlugin::test(QString niz){
 }
 
 void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2& cloud){
-  ui_.label_widthValue->setText(QString::number(cloud.width, 'f', 1));
-  ui_.label_updateValue->setText(QString::number((ros::Time::now().toSec()-updateTime), 'f', 1)); 
-  cloudWidth = cloud.width;
+  if((ros::Time::now().toSec()-updateTimeVelodyne) >= updateTime){
+    ui_.label_widthValue->setText(QString::number(cloud.width, 'f', 1));
+    updateTimeVelodyne = ros::Time::now().toSec(); 
+  }
+  ui_.label_updateValue->setText(QString::number((ros::Time::now().toSec()-updateTimeList), 'f', 1));
   MyPlugin::update_list();
+  
+  cloudWidth = cloud.width;
 }
 
 void MyPlugin::xyzVelodyne_callback(const geometry_msgs::PoseStamped& msg){
-  ui_.label_xVelodyneValue->setText(QString::number(msg.pose.position.x, 'f', 2));
-  ui_.label_yVelodyneValue->setText(QString::number(msg.pose.position.y, 'f', 2));
-  ui_.label_zVelodyneValue->setText(QString::number(msg.pose.position.z, 'f', 2));
+  if((ros::Time::now().toSec()-updateTimeXYZVelodyne) >= updateTime){
+    ui_.label_xVelodyneValue->setText(QString::number(msg.pose.position.x, 'f', 2));
+    ui_.label_yVelodyneValue->setText(QString::number(msg.pose.position.y, 'f', 2));
+    ui_.label_zVelodyneValue->setText(QString::number(msg.pose.position.z, 'f', 2));
+    updateTimeXYZVelodyne = ros::Time::now().toSec();
+  }
 }
 
 /*void MyPlugin::resolution_callback(const std_msgs::Int8 msg){
   ui_.label_resolutionValue->setText(QString("Resolucion ") + QString::number(msg.data, 'f', 0));
 }*/
 
-void MyPlugin::imu_callback(const euler_from_quaternion::Euler& msg){
-  ui_.label_rollValue->setText(QString::number(msg.roll, 'f', 2));
-  ui_.label_pitchValue->setText(QString::number(msg.pitch, 'f', 2));
-  ui_.label_yawValue->setText(QString::number(msg.yaw, 'f', 2));
+void MyPlugin::imuEuler_callback(const euler_from_quaternion::Euler& msg){
+  if((ros::Time::now().toSec()-updateTimeImuEuler) >= updateTime){
+    ui_.label_rollValue->setText(QString::number(msg.roll, 'f', 2));
+    ui_.label_pitchValue->setText(QString::number(msg.pitch, 'f', 2));
+    ui_.label_yawValue->setText(QString::number(msg.yaw, 'f', 2));
+    updateTimeImuEuler = ros::Time::now().toSec();
+  }
+}
+
+void MyPlugin::imuQuat_callback(const sensor_msgs::Imu msg){
+  if((ros::Time::now().toSec()-updateTimeImuQuat) >= updateTime){
+    ui_.label_quatValueX->setText(QString::number(msg.orientation.x, 'f', 4));
+    ui_.label_quatValueY->setText(QString::number(msg.orientation.y, 'f', 4));
+    ui_.label_quatValueZ->setText(QString::number(msg.orientation.z, 'f', 4));
+    ui_.label_quatValueW->setText(QString::number(msg.orientation.w, 'f', 4));
+    updateTimeImuQuat = ros::Time::now().toSec();
+  }
 }
 
 void MyPlugin::update_list(){
   QListWidgetItem* lwi = new QListWidgetItem();           // Crea el item "lwi"
   lwi->setSizeHint(QSize(200, 20));                       // Se le da tamaño a lwi
   lwi->setTextAlignment(Qt::AlignCenter);                 // Todo lo escrito en lwi va a estar centrado
-  if((ros::Time::now().toSec()-updateTime) >= 2.0){       // Si han pasado 2 segundos
+  if((ros::Time::now().toSec()-updateTimeList) >= 2.0){       // Si han pasado 2 segundos
     if (cloudWidth > 27300){                              // Si la nube de puntos es mayor de 27300
       lwi->setText(QString::number(cloudWidth, 'f', 1));  // Introduce el valor de la nube de puntos en lwi
       ui_.list_movil->addItem(lwi);                       // Añade lwi a la lista "list_movil"
@@ -119,7 +147,7 @@ void MyPlugin::update_list(){
       //ui_.list_movil->sortOrder();
       ui_.list_movil->sortItems(Qt::AscendingOrder);
     }
-    updateTime = ros::Time::now().toSec();
+    updateTimeList = ros::Time::now().toSec();
   }
 }
 
