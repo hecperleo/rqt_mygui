@@ -8,7 +8,6 @@
 // TEST
 #include "sensor_msgs/PointCloud2.h"
 #include <std_msgs/Int8.h>
-#include "euler_from_quaternion/Euler.h"
 #include <geometry_msgs/PoseStamped.h>
 #include "sensor_msgs/Imu.h"
 
@@ -50,7 +49,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext& context)
   // SUBSCRIBERS
   velodyne_sub    = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
   xyzVelodyne_sub = n_.subscribe("velodyne_xyz", 0, &MyPlugin::xyzVelodyne_callback, this);
-  imuEuler_sub         = n_.subscribe("Euler_RPY", 0, &MyPlugin::imuEuler_callback, this);
+  imuEuler_sub         = n_.subscribe("eulerIMU", 0, &MyPlugin::imuEuler_callback, this);
   imuQuat_sub         = n_.subscribe("imu/data", 0, &MyPlugin::imuQuat_callback, this);
   //resolution_sub = n_.subscribe("resolution", 0, &MyPlugin::resolution_callback, this);
   // PUBLISHER
@@ -115,11 +114,11 @@ void MyPlugin::xyzVelodyne_callback(const geometry_msgs::PoseStamped& msg){
   ui_.label_resolutionValue->setText(QString("Resolucion ") + QString::number(msg.data, 'f', 0));
 }*/
 
-void MyPlugin::imuEuler_callback(const euler_from_quaternion::Euler& msg){
+void MyPlugin::imuEuler_callback(const sensor_msgs::Imu msg){
   if((ros::Time::now().toSec()-updateTimeImuEuler) >= updateTime){
-    ui_.label_rollValue->setText(QString::number(msg.roll, 'f', 2));
-    ui_.label_pitchValue->setText(QString::number(msg.pitch, 'f', 2));
-    ui_.label_yawValue->setText(QString::number(msg.yaw, 'f', 2));
+    ui_.label_rollValue ->setText(QString::number(msg.orientation.x, 'f', 2));
+    ui_.label_pitchValue->setText(QString::number(msg.orientation.y, 'f', 2));
+    ui_.label_yawValue  ->setText(QString::number(msg.orientation.z, 'f', 2));
     updateTimeImuEuler = ros::Time::now().toSec();
   }
 }

@@ -1,5 +1,7 @@
 <library path="lib/librqt_mygui">
   <class name="rqt_mygui/MyPlugin" type="rqt_mygui::MyPlugin" base_class_type="rqt_gui_cpp::Plugin">
+<!--<library path="src">
+  <class name="MyPlugin" type="rqt_mygui::MyPlugin" base_class_type="rqt_gui_cpp::Plugin">-->
     <description>
       C++ GUI plugin.
     </description>
@@ -12,7 +14,7 @@
         <label>Subgroup</label>
       </group>
       -->
-      <label>C++ Plugin</label>
+      <label>C++ Plugin Navantia</label>
       <icon type="theme">system-help</icon>
       <statustip>Great user interface to provide real value.</statustip>
     </qtgui>

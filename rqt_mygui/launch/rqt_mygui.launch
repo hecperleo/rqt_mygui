@@ -3,6 +3,6 @@
     <node pkg="rosbag" type="play" name="player" output="screen" args="--clock /home/hector/bags/Bags_Velodyne/2017-02-03-11-42-21.bag"/>
     <node pkg="navantia" type="navantia" name="navantia"/>
     <node pkg="xsens_driver" type="mtnode.py" name="xsens_driver"/>
-    <node name="subscripterRPY_v2" pkg="euler_from_quaternion" type="subscripterRPY_v2" required="true"/>
+    <node name="subscriberIMU" pkg="euler_quaternion" type="subscriberIMU" required="true"/>
 
 </launch>

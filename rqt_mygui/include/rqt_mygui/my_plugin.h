@@ -24,7 +24,6 @@
 #include <QButtonGroup>
 // TEST
 #include "sensor_msgs/PointCloud2.h"
-#include "euler_from_quaternion/Euler.h"
 #include <geometry_msgs/PoseStamped.h>
 #include "sensor_msgs/Imu.h"
 
@@ -49,7 +48,7 @@ protected:
   virtual void velodyne_callback(const sensor_msgs::PointCloud2& cloud);
   virtual void xyzVelodyne_callback(const geometry_msgs::PoseStamped& msg);
   //virtual void resolution_callback(const std_msgs::Int8 msg);
-  virtual void imuEuler_callback(const euler_from_quaternion::Euler& msg);
+  virtual void imuEuler_callback(const sensor_msgs::Imu msg);
   virtual void imuQuat_callback(const sensor_msgs::Imu msg);
   virtual void test(QString niz);
   virtual void update_list();
