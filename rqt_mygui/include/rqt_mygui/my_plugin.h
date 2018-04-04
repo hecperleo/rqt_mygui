@@ -26,6 +26,7 @@
 #include "sensor_msgs/PointCloud2.h"
 #include <geometry_msgs/PoseStamped.h>
 #include "sensor_msgs/Imu.h"
+#include "sensor_msgs/NavSatFix.h"
 
 
 namespace rqt_mygui
@@ -46,7 +47,7 @@ protected slots:
 
 protected:
   virtual void velodyne_callback(const sensor_msgs::PointCloud2& cloud);
-  virtual void xyzVelodyne_callback(const geometry_msgs::PoseStamped& msg);
+  virtual void gps_callback(const sensor_msgs::NavSatFix msg);
   //virtual void resolution_callback(const std_msgs::Int8 msg);
   virtual void imuEuler_callback(const sensor_msgs::Imu msg);
   virtual void imuQuat_callback(const sensor_msgs::Imu msg);
@@ -63,14 +64,15 @@ private:
   // Node
   ros::NodeHandle n_;
   // Subscriber
-  ros::Subscriber velodyne_sub, resolution_sub, imuEuler_sub, imuQuat_sub, xyzVelodyne_sub;
+  ros::Subscriber velodyne_sub, resolution_sub, imuEuler_sub, imuQuat_sub, gps_sub;
   ros::Publisher resolution;
   // Variables
   //std::vector<double> vectorT;
   //bool flagSubvectorT;
   int resolucion;
   float cloudWidth;
-  double updateTime, updateTimeVelodyne, updateTimeXYZVelodyne, updateTimeImuEuler, updateTimeImuQuat, updateTimeList;
+  bool flagFirstItem;
+  double updateTime, updateTimeVelodyne, updateTimeGps, updateTimeImuEuler, updateTimeImuQuat, updateTimeList;
 // --------------------------------------------------------------------------
 };
 }  // namespace rqt_mygui

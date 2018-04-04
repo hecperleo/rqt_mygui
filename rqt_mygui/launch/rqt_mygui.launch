@@ -1,10 +1,10 @@
 <launch>
 
-    <node pkg="rosbag" type="play" name="player" output="screen" args="--clock /home/hector/bags/Bags_Velodyne/2017-02-03-11-42-21.bag" required="true"/>
+    <node pkg="rosbag" type="play" name="player" args="--clock /home/hector/bags/Bags_Velodyne/2017-02-03-11-42-21.bag" required="true"/>
     <node pkg="navantia" type="navantia" name="navantia" required="true"/>
     <node pkg="nav_ship" type="imu_cloud" name="imu_cloud" required="true"/>
-    <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" required="true"/>
-    <node pkg="xsens_driver" type="mtnode.py" name="xsens_driver" required="true"/>
+    <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" required="true" output="screen"/>
     <node name="subscriberIMU" pkg="euler_quaternion" type="subscriberIMU" required="true"/>
+    <node pkg="xsens_driver" type="mtnode.py" name="xsens_driver" required="true"/>
 
 </launch>

@@ -84,7 +84,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>610</y>
+     <y>630</y>
      <width>91</width>
      <height>17</height>
     </rect>
@@ -151,7 +151,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -202,7 +202,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -212,7 +212,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>570</y>
+     <y>590</y>
      <width>181</width>
      <height>71</height>
     </rect>
@@ -231,7 +231,7 @@
    <property name="geometry">
     <rect>
      <x>460</x>
-     <y>580</y>
+     <y>600</y>
      <width>91</width>
      <height>17</height>
     </rect>
@@ -250,7 +250,7 @@
    <property name="geometry">
     <rect>
      <x>565</x>
-     <y>580</y>
+     <y>600</y>
      <width>60</width>
      <height>20</height>
     </rect>
@@ -288,7 +288,7 @@
    <property name="geometry">
     <rect>
      <x>565</x>
-     <y>610</y>
+     <y>630</y>
      <width>60</width>
      <height>20</height>
     </rect>
@@ -316,7 +316,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -326,7 +326,7 @@
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>610</y>
+     <y>630</y>
      <width>91</width>
      <height>20</height>
     </rect>
@@ -335,7 +335,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -371,7 +371,7 @@
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>580</y>
+     <y>600</y>
      <width>91</width>
      <height>20</height>
     </rect>
@@ -380,7 +380,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -410,7 +410,7 @@
     <rect>
      <x>565</x>
      <y>740</y>
-     <width>60</width>
+     <width>91</width>
      <height>20</height>
     </rect>
    </property>
@@ -420,32 +420,32 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-  </widget>
-  <widget class="QLabel" name="label_zVelodyneValue">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>770</y>
-     <width>91</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text">
-    <string>X</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
+   <widget class="QLabel" name="label_gpsLongitude">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QFrame" name="frame_9">
    <property name="geometry">
     <rect>
      <x>565</x>
      <y>710</y>
-     <width>60</width>
+     <width>91</width>
      <height>20</height>
     </rect>
    </property>
@@ -455,13 +455,32 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QLabel" name="label_gpsLatitude">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>91</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QFrame" name="frame_10">
    <property name="geometry">
     <rect>
      <x>459</x>
      <y>700</y>
-     <width>181</width>
+     <width>211</width>
      <height>101</height>
     </rect>
    </property>
@@ -474,6 +493,25 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
+   <widget class="QLabel" name="label_gpsAltitude">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>70</y>
+      <width>81</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>-</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QLabel" name="label_yVelodyne">
    <property name="geometry">
@@ -488,7 +526,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>Y</string>
+    <string>Longitude</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -507,7 +545,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>Latitude</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -526,26 +564,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>Z</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_xVelodyneValue">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>710</y>
-     <width>91</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text">
-    <string>X</string>
+    <string>Altitude</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -556,7 +575,7 @@
     <rect>
      <x>565</x>
      <y>770</y>
-     <width>60</width>
+     <width>91</width>
      <height>20</height>
     </rect>
    </property>
@@ -567,31 +586,12 @@
     <enum>QFrame::Raised</enum>
    </property>
   </widget>
-  <widget class="QLabel" name="label_yVelodyneValue">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>740</y>
-     <width>91</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text">
-    <string>X</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_velodyne">
+  <widget class="QLabel" name="label_gps">
    <property name="geometry">
     <rect>
      <x>460</x>
      <y>680</y>
-     <width>85</width>
+     <width>41</width>
      <height>17</height>
     </rect>
    </property>
@@ -599,7 +599,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>Velodyne</string>
+    <string>GPS</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -637,7 +637,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -656,7 +656,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -818,7 +818,7 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
@@ -872,12 +872,35 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>X</string>
+    <string>-</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="label_gps_3">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>570</y>
+     <width>85</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="text">
+    <string>PointCloud</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <zorder>frame_14</zorder>
+  <zorder>frame_15</zorder>
+  <zorder>frame_11</zorder>
+  <zorder>frame_10</zorder>
   <zorder>frame_6</zorder>
   <zorder>frame_7</zorder>
   <zorder>label</zorder>
@@ -902,31 +925,25 @@
   <zorder>label_widthValue</zorder>
   <zorder>label_yaw</zorder>
   <zorder>frame_8</zorder>
-  <zorder>label_zVelodyneValue</zorder>
   <zorder>frame_9</zorder>
-  <zorder>frame_10</zorder>
   <zorder>label_yVelodyne</zorder>
   <zorder>label_xVelodyne</zorder>
   <zorder>label_zVelodyne</zorder>
-  <zorder>label_xVelodyneValue</zorder>
-  <zorder>frame_11</zorder>
-  <zorder>label_yVelodyneValue</zorder>
-  <zorder>label_velodyne</zorder>
+  <zorder>label_gps</zorder>
   <zorder>label_IMU</zorder>
-  <zorder>label_quatValueZ</zorder>
-  <zorder>label_quatValueY</zorder>
   <zorder>frame_12</zorder>
   <zorder>frame_13</zorder>
-  <zorder>frame_14</zorder>
   <zorder>label_pitch_2</zorder>
   <zorder>label_yaw_2</zorder>
   <zorder>label_roll_2</zorder>
-  <zorder>frame_15</zorder>
   <zorder>label_IMU_2</zorder>
   <zorder>label_quatValueX</zorder>
   <zorder>label_yaw_3</zorder>
   <zorder>frame_16</zorder>
   <zorder>label_quatValueW</zorder>
+  <zorder>label_quatValueY</zorder>
+  <zorder>label_quatValueZ</zorder>
+  <zorder>label_gps_3</zorder>
  </widget>
  <resources/>
  <connections/>
