@@ -147,37 +147,27 @@ void MyPlugin::imuQuat_callback(const sensor_msgs::Imu msg)
     ui_.label_quatValueW->setText(QString::number(msg.orientation.w, 'f', 4));
     updateTimeImuQuat = ros::Time::now().toSec();
   }
-
-
-  //hehehd
 }
 
 void MyPlugin::update_list()
 {
-  QListWidgetItem *lwi = new QListWidgetItem(); // Crea el item "lwi"
-  lwi->setSizeHint(QSize(200, 20));             // Se le da tamaño a lwi
-  lwi->setTextAlignment(Qt::AlignCenter);       // Todo lo escrito en lwi va a estar centrado
-  if ((ros::Time::now().toSec() - updateTimeList) >= 2.0)
-  { // Si han pasado 2 segundos
-    if (cloudWidth > 27300)
-    {                                                    // Si la nube de puntos es mayor de 27300
-      lwi->setText(QString::number(cloudWidth, 'f', 1)); // Introduce el valor de la nube de puntos en lwi
-      ui_.list_movil->addItem(lwi);                      // Añade lwi a la lista "list_movil"
-      flagFirstItem = true;
-    }
-    else if (cloudWidth < 27000)
-    { // Si es menor de 27000
-      //ui_.list_movil->takeItem(0);                        // Borra el primer lwi que se ha añadido
-      //ui_.list_movil->sortOrder();
-      //ui_.list_movil->sortItems(Qt::AscendingOrder);
-    }
-    updateTimeList = ros::Time::now().toSec();
-  }
-  if (flagFirstItem == true)
+  if (flagFirstItem == false)
   {
-    ui_.list_movil->item(0)->setText(QString("-- ") + QString::number(cloudWidth, 'f', 1));
+    for (int i = 0; i < 4; i++)
+    {
+      QListWidgetItem *lwi = new QListWidgetItem();
+      lwi->setSizeHint(QSize(200, 20));
+      lwi->setTextAlignment(Qt::AlignCenter);
+      lwi->setText(QString("Obstáculo ") + QString::number(i));
+      ui_.list_movil->addItem(lwi);
+    }
+    flagFirstItem = true;
   }
-  ///ui_.list_movil->item(0)->setText(QString("--") + QString::number(cloudWidth, 'f', 1));
+  /*if (flagFirstItem == true)
+  {
+    ui_.list_movil->item(0)->setText(QString("time = "));
+    updateTimeList = ros::Time::now().toSec();
+  }*/
 }
 
 void MyPlugin::resolution_pub()
