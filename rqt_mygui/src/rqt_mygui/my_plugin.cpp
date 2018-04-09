@@ -47,6 +47,7 @@ void MyPlugin::initPlugin(qt_gui_cpp::PluginContext &context)
   flagFirstItem = false;
   // CONNECT
   connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
+  connect(&cloudUpdate, SIGNAL(valueChanged(int)), ui_.list_movil, SLOT(setValue(int)));
   // SUBSCRIBERS
   velodyne_sub = n_.subscribe("velodyne_points", 0, &MyPlugin::velodyne_callback, this);
   gps_sub = n_.subscribe("fix", 0, &MyPlugin::gps_callback, this);
@@ -90,11 +91,20 @@ void MyPlugin::click_pushButton()
     break;
   }
   ui_.label_resolutionValue->setText(QString(" ") + QString::number(resolucion, 'f', 0));
+  //ui_.list_movil->item(0)->setText(QString("Cloud = ") + QString::number(cloudWidth, 'f', 0));
   MyPlugin::resolution_pub();
+}
+
+void cloudSignal::setValue(int value)
+{
+	emit valueChanged(value);
+  ui_.list_movil->item(0)->setText(QString("-------------------"));
+  ROS_INFO("XXXXXXXXXXXXXXXX");
 }
 
 void MyPlugin::test(QString niz)
 {
+  //ui_.list_movil->item(0)->setText(QString("Cloud = ") + QString::number(cloudWidth, 'f', 0));
   //ui_.label_resolutionValue->setText(niz);
 }
 
@@ -106,9 +116,12 @@ void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2 &cloud)
     updateTimeVelodyne = ros::Time::now().toSec();
   }
   ui_.label_updateValue->setText(QString::number((ros::Time::now().toSec() - updateTimeList), 'f', 1));
-  MyPlugin::update_list();
-
   cloudWidth = cloud.width;
+  
+  MyPlugin::update_list();
+    
+
+  cloudUpdate.setValue(cloudWidth);
 }
 
 void MyPlugin::gps_callback(const sensor_msgs::NavSatFix msg)
@@ -118,6 +131,9 @@ void MyPlugin::gps_callback(const sensor_msgs::NavSatFix msg)
     ui_.label_gpsLatitude->setText(QString::number(msg.latitude, 'f', 7));
     ui_.label_gpsLongitude->setText(QString::number(msg.longitude, 'f', 7));
     ui_.label_gpsAltitude->setText(QString::number(msg.altitude, 'f', 7));
+    ui_.list_movil->item(0)->isSelected();
+    ui_.list_movil->item(0)->setText(QString("Cloud = ") + QString::number(cloudWidth, 'f', 0));
+    
     updateTimeGps = ros::Time::now().toSec();
   }
 }
@@ -163,6 +179,7 @@ void MyPlugin::update_list()
     }
     flagFirstItem = true;
   }
+  //ui_.list_movil->item(0)->setText(QString("Cloud = ") + QString::number(cloudWidth, 'f', 0));
   /*if (flagFirstItem == true)
   {
     ui_.list_movil->item(0)->setText(QString("time = "));

@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
   rqt_gui
   rqt_gui_cpp
   std_msgs
-  euler_from_quaternion
+  euler_quaternion
 )
 
 ## System dependencies are found with CMake's conventions
@@ -113,7 +113,7 @@ catkin_package(
 #  INCLUDE_DIRS include
   INCLUDE_DIRS ${rqt_mygui_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp std_msgs euler_from_quaternion
+  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp std_msgs euler_quaternion
 #  DEPENDS system_lib
 )
 

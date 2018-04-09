@@ -28,25 +28,44 @@
 #include "sensor_msgs/Imu.h"
 #include "sensor_msgs/NavSatFix.h"
 
-
 namespace rqt_mygui
 {
+
+class cloudSignal : public QObject
+{
+  Q_OBJECT
+
+public:
+  cloudSignal() { m_value = 0; }
+
+  int value() const { return m_value; }
+
+public slots:
+  void setValue(int value);
+
+signals:
+  void valueChanged(int newValue);
+
+private:
+  int m_value;
+};
 
 class MyPlugin : public rqt_gui_cpp::Plugin
 {
   Q_OBJECT
 public:
   MyPlugin();
-  virtual void initPlugin(qt_gui_cpp::PluginContext& context);
+  virtual void initPlugin(qt_gui_cpp::PluginContext &context);
   virtual void shutdownPlugin();
-  virtual void saveSettings(qt_gui_cpp::Settings& plugin_settings,qt_gui_cpp::Settings& instance_settings) const;
-  virtual void restoreSettings(const qt_gui_cpp::Settings& plugin_settings,const qt_gui_cpp::Settings& instance_settings);
-// --------------------------------------------------------------------------
+  virtual void saveSettings(qt_gui_cpp::Settings &plugin_settings, qt_gui_cpp::Settings &instance_settings) const;
+  virtual void restoreSettings(const qt_gui_cpp::Settings &plugin_settings, const qt_gui_cpp::Settings &instance_settings);
+  Ui::MyPluginWidget ui_;
+  // --------------------------------------------------------------------------
 protected slots:
   virtual void click_pushButton();
 
 protected:
-  virtual void velodyne_callback(const sensor_msgs::PointCloud2& cloud);
+  virtual void velodyne_callback(const sensor_msgs::PointCloud2 &cloud);
   virtual void gps_callback(const sensor_msgs::NavSatFix msg);
   //virtual void resolution_callback(const std_msgs::Int8 msg);
   virtual void imuEuler_callback(const sensor_msgs::Imu msg);
@@ -59,8 +78,7 @@ protected:
   // bool hasConfiguration() const;
   // void triggerConfiguration();
 private:
-  Ui::MyPluginWidget ui_;
-  QWidget* widget_;
+  QWidget *widget_;
   // Node
   ros::NodeHandle n_;
   // Subscriber
@@ -73,7 +91,8 @@ private:
   float cloudWidth;
   bool flagFirstItem;
   double updateTime, updateTimeVelodyne, updateTimeGps, updateTimeImuEuler, updateTimeImuQuat, updateTimeList;
-// --------------------------------------------------------------------------
+  cloudSignal cloudUpdate;
+  // --------------------------------------------------------------------------
 };
-}  // namespace rqt_mygui
-#endif  // RQT_MYGUI_MY_PLUGIN_H
+} // namespace rqt_mygui
+#endif // RQT_MYGUI_MY_PLUGIN_H
