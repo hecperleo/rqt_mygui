@@ -36,7 +36,8 @@ class cloudSignal : public QObject
   Q_OBJECT
 
 public:
-  cloudSignal() { m_value = 0; }
+  cloudSignal(Ui::MyPluginWidget ui) { m_value = 0;
+  ui_ = ui; }
 
   int value() const { return m_value; }
 
@@ -48,6 +49,8 @@ signals:
 
 private:
   int m_value;
+  Ui::MyPluginWidget ui_;
+  double updateItem = ros::Time::now().toSec();
 };
 
 class MyPlugin : public rqt_gui_cpp::Plugin
@@ -91,7 +94,8 @@ private:
   float cloudWidth;
   bool flagFirstItem;
   double updateTime, updateTimeVelodyne, updateTimeGps, updateTimeImuEuler, updateTimeImuQuat, updateTimeList;
-  cloudSignal cloudUpdate;
+  double updateItem = ros::Time::now().toSec();
+  cloudSignal* cloudUpdate;
   // --------------------------------------------------------------------------
 };
 } // namespace rqt_mygui

@@ -897,19 +897,6 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QProgressBar" name="progressBar">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>610</y>
-     <width>118</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="value">
-    <number>24</number>
-   </property>
-  </widget>
   <zorder>frame_14</zorder>
   <zorder>frame_15</zorder>
   <zorder>frame_11</zorder>
@@ -957,7 +944,6 @@
   <zorder>label_quatValueY</zorder>
   <zorder>label_quatValueZ</zorder>
   <zorder>label_gps_3</zorder>
-  <zorder>progressBar</zorder>
  </widget>
  <resources/>
  <connections/>
