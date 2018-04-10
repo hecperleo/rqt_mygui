@@ -130,7 +130,7 @@ void MyPlugin::velodyne_callback(const sensor_msgs::PointCloud2 &cloud)
     ui_.label_widthValue->setText(QString::number(cloud.width, 'f', 1));
     updateTimeVelodyne = ros::Time::now().toSec();
   }
-  ui_.label_updateValue->setText(QString::number((ros::Time::now().toSec() - updateTimeList), 'f', 1));
+  ui_.label_updateValue->setText(QString::number((ros::Time::now().toSec()-updateTimeVelodyne), 'f', 1));
   cloudWidth = cloud.width;
 
   MyPlugin::update_list();
@@ -181,7 +181,28 @@ void MyPlugin::imuQuat_callback(const sensor_msgs::Imu msg)
 
 void MyPlugin::update_list()
 {
-  if (flagFirstItem == false)
+  if ((ros::Time::now().toSec() - updateTime) >= updateItem)
+  {
+    ui_.list_movil->clear();
+    for (int i = 0; i < 4; i++)
+    {
+      QListWidgetItem *lwi = new QListWidgetItem();
+      lwi->setSizeHint(QSize(200, 20));
+      lwi->setTextAlignment(Qt::AlignCenter);
+      if (i < 3)
+      {
+        lwi->setText(QString("Obstáculo ") + QString::number(i));
+      }
+      else
+      {
+        lwi->setText(QString("Cloud = ") + QString::number(cloudWidth));
+      }
+      ui_.list_movil->addItem(lwi);
+    }
+    updateItem = ros::Time::now().toSec();
+  }
+
+  /*if (flagFirstItem == false)
   {
     for (int i = 0; i < 4; i++)
     {
@@ -190,6 +211,7 @@ void MyPlugin::update_list()
       lwi->setTextAlignment(Qt::AlignCenter);
       lwi->setText(QString("Obstáculo ") + QString::number(i));
       ui_.list_movil->addItem(lwi);
+      //ui_.list_movil->item(i)->setFlags(Qt::ItemIsEditable);
     }
     flagFirstItem = true;
   }
@@ -198,18 +220,12 @@ void MyPlugin::update_list()
     ROS_INFO("1.0");
     for (int i = 0; i < ui_.list_movil->count(); ++i)
     {
-      ui_.list_movil->item(i)->setText(QString::number(updateItem, 'f', 0));
+      ui_.list_movil->item(i)->setText(QString::number(cloudWidth, 'f', 0));
       ui_.list_movil->update();
     }
     updateItem = ros::Time::now().toSec();
-  }
-}
-//ui_.list_movil->item(0)->setText(QString("Cloud = ") + QString::number(cloudWidth, 'f', 0));
-/*if (flagFirstItem == true)
-  {
-    ui_.list_movil->item(0)->setText(QString("time = "));
-    updateTimeList = ros::Time::now().toSec();
   }*/
+}
 
 void MyPlugin::resolution_pub()
 {
