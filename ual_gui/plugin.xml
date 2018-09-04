@@ -1,0 +1,22 @@
+<library path="lib/libual_gui">
+  <class name="ual_gui/UalPlugin" type="ual_gui::UalPlugin" base_class_type="rqt_gui_cpp::Plugin">
+<!--<library path="src">
+  <class name="UalPlugin" type="ual_gui::UalPlugin" base_class_type="rqt_gui_cpp::Plugin">-->
+    <description>
+      C++ GUI plugin.
+    </description>
+    <qtgui>
+      <!-- optional grouping...
+      <group>
+        <label>Group</label>
+      </group>
+      <group>
+        <label>Subgroup</label>
+      </group>
+      -->
+      <label>C++ Plugin UAL</label>
+      <icon type="theme">system-help</icon>
+      <statustip>Great user interface to provide real value.</statustip>
+    </qtgui>
+  </class>
+</library>

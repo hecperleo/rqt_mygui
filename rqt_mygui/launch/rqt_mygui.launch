@@ -1,12 +1,5 @@
 <launch>
 
-    <node pkg="rosbag" type="play" name="player" args=" --loop /home/hector/bags/Bags_Velodyne/2017-02-03-11-42-21.bag" required="true"/>
-    <node pkg="rosbag" type="play" name="player1" args=" --loop /home/hector/bags/GPS_patio/cuadrado.bag" required="true"/>
-    <node pkg="navantia" type="navantia" name="navantia" required="true"/>
-    <node pkg="nav_ship" type="imu_cloud" name="imu_cloud" required="true"/>
-    <node pkg="nav_ship" type="gps_info" name="gps_info" output="screen" required="true"/>
     <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" required="true" output="screen"/> 
-    <node name="imu_conversions" pkg="euler_quaternion" type="imu_conversions" required="true"/>
-    <!-- <node pkg="xsens_driver" type="mtnode.py" name="xsens_driver" required="true"/> -->
 
 </launch>
