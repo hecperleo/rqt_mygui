@@ -3,7 +3,7 @@
 <!--<library path="src">
   <class name="UalPlugin" type="ual_gui::UalPlugin" base_class_type="rqt_gui_cpp::Plugin">-->
     <description>
-      C++ GUI plugin.
+      C++ Plugin UAL
     </description>
     <qtgui>
       <!-- optional grouping...
@@ -16,7 +16,7 @@
       -->
       <label>C++ Plugin UAL</label>
       <icon type="theme">system-help</icon>
-      <statustip>Great user interface to provide real value.</statustip>
+      <statustip>User interface to use UAL</statustip>
     </qtgui>
   </class>
 </library>

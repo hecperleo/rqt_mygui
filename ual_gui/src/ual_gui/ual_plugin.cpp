@@ -1,23 +1,5 @@
 #include "ual_gui/ual_plugin.h"
 #include <pluginlib/class_list_macros.h>
-#include <QStringList>
-#include <QObject>
-#include <QMetaObject>
-#include <Qt>
-#include <ros/ros.h>
-// TEST
-#include "sensor_msgs/PointCloud2.h"
-#include <std_msgs/Int8.h>
-#include <geometry_msgs/PoseStamped.h>
-#include <geometry_msgs/TwistStamped.h>
-#include "sensor_msgs/Imu.h"
-#include "sensor_msgs/NavSatFix.h"
-
-#include <uav_abstraction_layer/ual.h>
-#include <uav_abstraction_layer/GoToWaypoint.h>
-#include <uav_abstraction_layer/Land.h>
-#include <uav_abstraction_layer/TakeOff.h>
-#include <uav_abstraction_layer/SetVelocity.h>
 
 namespace ual_gui
 {
@@ -41,25 +23,23 @@ void UalPlugin::initPlugin(qt_gui_cpp::PluginContext &context)
   ui_.setupUi(widget_);
   // add widget to the user interface
   context.addWidget(widget_);
-
+  // ROS START
   ros::start();
   // CONNECT
-  // connect(ui_.pushButton, SIGNAL(pressed()), this, SLOT(click_pushButton()));
   connect(ui_.pushButton_takeOff, SIGNAL(pressed()), this, SLOT(press_takeOff()));
   connect(ui_.pushButton_land, SIGNAL(pressed()), this, SLOT(press_land()));
   connect(ui_.pushButton_goToWaypoint, SIGNAL(pressed()), this, SLOT(press_goToWaypoint()));
   connect(ui_.pushButton_setVelocity, SIGNAL(pressed()), this, SLOT(press_setVelocity()));
   // SUBSCRIBERS
-  // UAL //
-  srvTakeOff = n_.serviceClient<uav_abstraction_layer::TakeOff>("/uav_1/ual/take_off");
-  srvLand = n_.serviceClient<uav_abstraction_layer::Land>("/uav_1/ual/land");
-  srvGoToWaypoint = n_.serviceClient<uav_abstraction_layer::GoToWaypoint>("/uav_1/ual/go_to_waypoint");
-  srvSetVelocity = n_.serviceClient<uav_abstraction_layer::SetVelocity>("/uav_1/ual/set_velocity");
   state_sub = n_.subscribe("/uav_1/ual/state", 0, &UalPlugin::state_callback, this);
   pose_sub = n_.subscribe("/uav_1/ual/pose", 0, &UalPlugin::pose_callback, this);
   velocity_sub = n_.subscribe("/uav_1/ual/velocity", 0, &UalPlugin::velocity_callback, this);
-  // UAL //
   // PUBLISHERS
+  // SERVICES
+  srvSetVelocity = n_.serviceClient<uav_abstraction_layer::SetVelocity>("/uav_1/ual/set_velocity");
+  srvTakeOff = n_.serviceClient<uav_abstraction_layer::TakeOff>("/uav_1/ual/take_off");
+  srvLand = n_.serviceClient<uav_abstraction_layer::Land>("/uav_1/ual/land");
+  srvGoToWaypoint = n_.serviceClient<uav_abstraction_layer::GoToWaypoint>("/uav_1/ual/go_to_waypoint");
 }
 
 void UalPlugin::shutdownPlugin()
@@ -80,8 +60,6 @@ void UalPlugin::restoreSettings(const qt_gui_cpp::Settings &plugin_settings,
   // v = instance_settings.value(k)
 }
 
-// --------------------------------------------------------------------------
-// UAL //
 void UalPlugin::state_callback(const std_msgs::String msg)
 {
   QString txt = QString::fromStdString(msg.data);
@@ -172,9 +150,6 @@ void UalPlugin::press_setVelocity()
   set_velocity.request.velocity = vel;
   srvSetVelocity.call(set_velocity);
 }
-// UAL //
-
-// --------------------------------------------------------------------------
 
 /*bool hasConfiguration() const
 {
@@ -187,5 +162,5 @@ void triggerConfiguration()
 }*/
 
 } // namespace ual_gui
-//PLUGINLIB_DECLARE_CLASS(ual_gui, UalPlugin, ual_gui::UalPlugin, rqt_gui_cpp::Plugin)
+
 PLUGINLIB_EXPORT_CLASS(ual_gui::UalPlugin, rqt_gui_cpp::Plugin)
