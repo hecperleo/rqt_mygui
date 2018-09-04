@@ -1,5 +1,0 @@
-<launch>
-
-    <node pkg="rqt_gui" type="rqt_gui" name="rqt_gui" required="true" output="screen"/> 
-
-</launch>

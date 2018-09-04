@@ -13,7 +13,6 @@ find_package(catkin REQUIRED COMPONENTS
   rqt_gui
   rqt_gui_cpp
   std_msgs
-  euler_quaternion
   uav_abstraction_layer
 )
 
@@ -117,7 +116,7 @@ catkin_package(
 #  INCLUDE_DIRS include
   INCLUDE_DIRS ${ual_gui_INCLUDE_DIRECTORIES}
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp std_msgs euler_quaternion uav_abstraction_layer
+  CATKIN_DEPENDS roscpp rqt_gui rqt_gui_cpp std_msgs uav_abstraction_layer
 #  DEPENDS system_lib
 )
 
