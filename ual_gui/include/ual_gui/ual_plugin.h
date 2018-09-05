@@ -6,6 +6,7 @@
 // QT & RQT
 #include <rqt_gui_cpp/plugin.h>
 #include <ual_gui/ui_ual_plugin.h>
+#include <QMessageBox>
 // UAL
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
@@ -48,6 +49,8 @@ protected slots:
   virtual void press_land();
   virtual void press_goToWaypoint();
   virtual void press_setVelocity();
+  virtual void press_stop();
+  virtual void show_messageBoxInputError(QString field);
 
 protected:
   virtual void state_callback(const std_msgs::String msg);
@@ -72,6 +75,7 @@ private:
   uav_abstraction_layer::SetVelocity set_velocity;
   geometry_msgs::TwistStamped vel;
   geometry_msgs::PoseStamped wp;
+  double takeOffHeight;
 };
 } // namespace ual_gui
 #endif // ual_gui_ual_plugin_H

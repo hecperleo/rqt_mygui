@@ -30,6 +30,7 @@ void UalPlugin::initPlugin(qt_gui_cpp::PluginContext &context)
   connect(ui_.pushButton_land, SIGNAL(pressed()), this, SLOT(press_land()));
   connect(ui_.pushButton_goToWaypoint, SIGNAL(pressed()), this, SLOT(press_goToWaypoint()));
   connect(ui_.pushButton_setVelocity, SIGNAL(pressed()), this, SLOT(press_setVelocity()));
+  connect(ui_.pushButton_stop, SIGNAL(pressed()), this, SLOT(press_stop()));
   // SUBSCRIBERS
   state_sub = n_.subscribe("/uav_1/ual/state", 0, &UalPlugin::state_callback, this);
   pose_sub = n_.subscribe("/uav_1/ual/pose", 0, &UalPlugin::pose_callback, this);
@@ -75,6 +76,7 @@ void UalPlugin::pose_callback(const geometry_msgs::PoseStamped msg)
   ui_.getPoseOy->setText(QString::number(msg.pose.orientation.y, 'f', 2));
   ui_.getPoseOz->setText(QString::number(msg.pose.orientation.z, 'f', 2));
   ui_.getPoseOw->setText(QString::number(msg.pose.orientation.w, 'f', 2));
+  ui_.getPoseFrame->setText(QString::fromStdString(msg.header.frame_id));
 }
 
 void UalPlugin::velocity_callback(const geometry_msgs::TwistStamped msg)
@@ -85,39 +87,101 @@ void UalPlugin::velocity_callback(const geometry_msgs::TwistStamped msg)
   ui_.getVelAx->setText(QString::number(msg.twist.angular.x, 'f', 2));
   ui_.getVelAy->setText(QString::number(msg.twist.angular.y, 'f', 2));
   ui_.getVelAz->setText(QString::number(msg.twist.angular.z, 'f', 2));
+  ui_.getVelFrame->setText(QString::fromStdString(msg.header.frame_id));
 }
 
 void UalPlugin::press_takeOff()
 {
-  double height = ui_.setTakeOffHeight->text().toDouble();
-  take_off.request.height = height;
+  if (ui_.setTakeOffHeight->text().isEmpty())
+  {
+    takeOffHeight = 5.0;
+    // show_messageBoxInputError("Take Off");
+  }
+  else
+  {
+    takeOffHeight = ui_.setTakeOffHeight->text().toDouble();
+  }
+  take_off.request.height = takeOffHeight;
   take_off.request.blocking = false;
   srvTakeOff.call(take_off);
 }
 
 void UalPlugin::press_land()
 {
-  // land.request.twist.linear.x = 0.0;
-  // land.request.twist.linear.y = 0.0;
-  // land.request.twist.linear.z = 0.0;
-  // land.request.twist.angular.x = 0.0;
-  // land.request.twist.angular.y = 0.0;
-  // land.request.twist.angular.z = 0.0;
   land.request.blocking = false;
   srvLand.call(land);
 }
 
 void UalPlugin::press_goToWaypoint()
 {
-  double pPx = ui_.setPosePx->text().toDouble();
-  double pPy = ui_.setPosePy->text().toDouble();
-  double pPz = ui_.setPosePz->text().toDouble();
-  double pOx = ui_.setPoseOx->text().toDouble();
-  double pOy = ui_.setPoseOy->text().toDouble();
-  double pOz = ui_.setPoseOz->text().toDouble();
-  double pOw = ui_.setPoseOw->text().toDouble();
+  double pPx, pPy, pPz, pOx, pOy, pOz, pOw;
+  std::string frame;
+  if (ui_.setPosePx->text().isEmpty())
+  {
+    pPx = 0.0;
+  }
+  else
+  {
+    pPx = ui_.setPosePx->text().toDouble();
+  }
+  if (ui_.setPosePy->text().isEmpty())
+  {
+    pPy = 0.0;
+  }
+  else
+  {
+    pPy = ui_.setPosePy->text().toDouble();
+  }
+  if (ui_.setPosePz->text().isEmpty())
+  {
+    pPz = takeOffHeight;
+  }
+  else
+  {
+    pPz = ui_.setPosePz->text().toDouble();
+  }
+  if (ui_.setPoseOx->text().isEmpty())
+  {
+    pOx = 0.0;
+  }
+  else
+  {
+    pOx = ui_.setPoseOx->text().toDouble();
+  }
+  if (ui_.setPoseOy->text().isEmpty())
+  {
+    pOy = 0.0;
+  }
+  else
+  {
+    pOy = ui_.setPoseOy->text().toDouble();
+  }
+  if (ui_.setPoseOz->text().isEmpty())
+  {
+    pOz = 0.0;
+  }
+  else
+  {
+    pOz = ui_.setPoseOz->text().toDouble();
+  }
+  if (ui_.setPoseOw->text().isEmpty())
+  {
+    pOw = 1.0;
+  }
+  else
+  {
+    pOw = ui_.setPoseOw->text().toDouble();
+  }
+  if (ui_.setPoseFrame->text().isEmpty())
+  {
+    frame = "map";
+  }
+  else
+  {
+    frame = ui_.setPoseFrame->text().toStdString();
+  }
 
-  wp.header.frame_id = "map";
+  wp.header.frame_id = frame;
   wp.pose.position.x = pPx;
   wp.pose.position.y = pPy;
   wp.pose.position.z = pPz;
@@ -132,14 +196,66 @@ void UalPlugin::press_goToWaypoint()
 
 void UalPlugin::press_setVelocity()
 {
-  double vLx = ui_.setVelLx->text().toDouble();
-  double vLy = ui_.setVelLy->text().toDouble();
-  double vLz = ui_.setVelLz->text().toDouble();
-  double vAx = ui_.setVelAx->text().toDouble();
-  double vAy = ui_.setVelAy->text().toDouble();
-  double vAz = ui_.setVelAz->text().toDouble();
+  double vLx, vLy, vLz, vAx, vAy, vAz;
+  std::string frame;
+  if (ui_.setVelLx->text().isEmpty())
+  {
+    vLx = 0.0;
+  }
+  else
+  {
+    vLx = ui_.setVelLx->text().toDouble();
+  }
+  if (ui_.setVelLy->text().isEmpty())
+  {
+    vLy = 0.0;
+  }
+  else
+  {
+    vLy = ui_.setVelLy->text().toDouble();
+  }
+  if (ui_.setVelLz->text().isEmpty())
+  {
+    vLz = 0.0;
+  }
+  else
+  {
+    vLz = ui_.setVelLz->text().toDouble();
+  }
+  if (ui_.setVelAx->text().isEmpty())
+  {
+    vAx = 0.0;
+  }
+  else
+  {
+    vAx = ui_.setVelAx->text().toDouble();
+  }
+  if (ui_.setVelAy->text().isEmpty())
+  {
+    vAy = 0.0;
+  }
+  else
+  {
+    vAy = ui_.setVelAy->text().toDouble();
+  }
+  if (ui_.setVelAz->text().isEmpty())
+  {
+    vAz = 0.0;
+  }
+  else
+  {
+    vAz = ui_.setVelAz->text().toDouble();
+  }
+  if (ui_.setVelFrame->text().isEmpty())
+  {
+    frame = "uav_1_home";
+  }
+  else
+  {
+    frame = ui_.setVelFrame->text().toStdString();
+  }
 
-  vel.header.frame_id = "map";
+  vel.header.frame_id = frame;
   vel.twist.linear.x = vLx;
   vel.twist.linear.y = vLy;
   vel.twist.linear.z = vLz;
@@ -149,6 +265,27 @@ void UalPlugin::press_setVelocity()
 
   set_velocity.request.velocity = vel;
   srvSetVelocity.call(set_velocity);
+}
+
+void UalPlugin::press_stop()
+{
+  vel.header.frame_id = "map";
+  vel.twist.linear.x = 0.0;
+  vel.twist.linear.y = 0.0;
+  vel.twist.linear.z = 0.0;
+  vel.twist.angular.x = 0.0;
+  vel.twist.angular.y = 0.0;
+  vel.twist.angular.z = 0.0;
+
+  set_velocity.request.velocity = vel;
+  srvSetVelocity.call(set_velocity);
+}
+
+void UalPlugin::show_messageBoxInputError(QString field)
+{
+  QMessageBox msgBox;
+  msgBox.setText("Complete all " + field + " fields");
+  msgBox.exec();
 }
 
 /*bool hasConfiguration() const
