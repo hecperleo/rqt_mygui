@@ -94,16 +94,15 @@ void UalPlugin::press_takeOff()
 {
   if (ui_.setTakeOffHeight->text().isEmpty())
   {
-    takeOffHeight = 5.0;
-    // show_messageBoxInputError("Take Off");
+    show_messageBoxInputError("Take Off");
   }
   else
   {
     takeOffHeight = ui_.setTakeOffHeight->text().toDouble();
+    take_off.request.height = takeOffHeight;
+    take_off.request.blocking = false;
+    srvTakeOff.call(take_off);
   }
-  take_off.request.height = takeOffHeight;
-  take_off.request.blocking = false;
-  srvTakeOff.call(take_off);
 }
 
 void UalPlugin::press_land()
@@ -116,155 +115,68 @@ void UalPlugin::press_goToWaypoint()
 {
   double pPx, pPy, pPz, pOx, pOy, pOz, pOw;
   std::string frame;
-  if (ui_.setPosePx->text().isEmpty())
+  if (ui_.setPosePx->text().isEmpty() || ui_.setPosePy->text().isEmpty() || ui_.setPosePz->text().isEmpty() ||
+      ui_.setPoseOx->text().isEmpty() || ui_.setPoseOy->text().isEmpty() || ui_.setPoseOz->text().isEmpty() ||
+      ui_.setPoseOw->text().isEmpty() || ui_.setPoseFrame->text().isEmpty())
   {
-    pPx = 0.0;
+    show_messageBoxInputError("Waypoint");
   }
   else
   {
     pPx = ui_.setPosePx->text().toDouble();
-  }
-  if (ui_.setPosePy->text().isEmpty())
-  {
-    pPy = 0.0;
-  }
-  else
-  {
     pPy = ui_.setPosePy->text().toDouble();
-  }
-  if (ui_.setPosePz->text().isEmpty())
-  {
-    pPz = takeOffHeight;
-  }
-  else
-  {
     pPz = ui_.setPosePz->text().toDouble();
-  }
-  if (ui_.setPoseOx->text().isEmpty())
-  {
-    pOx = 0.0;
-  }
-  else
-  {
     pOx = ui_.setPoseOx->text().toDouble();
-  }
-  if (ui_.setPoseOy->text().isEmpty())
-  {
-    pOy = 0.0;
-  }
-  else
-  {
     pOy = ui_.setPoseOy->text().toDouble();
-  }
-  if (ui_.setPoseOz->text().isEmpty())
-  {
-    pOz = 0.0;
-  }
-  else
-  {
     pOz = ui_.setPoseOz->text().toDouble();
-  }
-  if (ui_.setPoseOw->text().isEmpty())
-  {
-    pOw = 1.0;
-  }
-  else
-  {
     pOw = ui_.setPoseOw->text().toDouble();
-  }
-  if (ui_.setPoseFrame->text().isEmpty())
-  {
-    frame = "map";
-  }
-  else
-  {
     frame = ui_.setPoseFrame->text().toStdString();
+
+    wp.header.frame_id = frame;
+    wp.pose.position.x = pPx;
+    wp.pose.position.y = pPy;
+    wp.pose.position.z = pPz;
+    wp.pose.orientation.x = pOx;
+    wp.pose.orientation.y = pOy;
+    wp.pose.orientation.z = pOz;
+    wp.pose.orientation.w = pOw;
+
+    go_to_waypoint.request.waypoint = wp;
+    srvGoToWaypoint.call(go_to_waypoint);
   }
-
-  wp.header.frame_id = frame;
-  wp.pose.position.x = pPx;
-  wp.pose.position.y = pPy;
-  wp.pose.position.z = pPz;
-  wp.pose.orientation.x = pOx;
-  wp.pose.orientation.y = pOy;
-  wp.pose.orientation.z = pOz;
-  wp.pose.orientation.w = pOw;
-
-  go_to_waypoint.request.waypoint = wp;
-  srvGoToWaypoint.call(go_to_waypoint);
 }
 
 void UalPlugin::press_setVelocity()
 {
   double vLx, vLy, vLz, vAx, vAy, vAz;
   std::string frame;
-  if (ui_.setVelLx->text().isEmpty())
+  if (ui_.setVelLx->text().isEmpty() || ui_.setVelLy->text().isEmpty() || ui_.setVelLz->text().isEmpty() ||
+      ui_.setVelAx->text().isEmpty() || ui_.setVelAy->text().isEmpty() || ui_.setVelAz->text().isEmpty() ||
+      ui_.setVelFrame->text().isEmpty())
   {
-    vLx = 0.0;
+    show_messageBoxInputError("Velocity");
   }
   else
   {
     vLx = ui_.setVelLx->text().toDouble();
-  }
-  if (ui_.setVelLy->text().isEmpty())
-  {
-    vLy = 0.0;
-  }
-  else
-  {
     vLy = ui_.setVelLy->text().toDouble();
-  }
-  if (ui_.setVelLz->text().isEmpty())
-  {
-    vLz = 0.0;
-  }
-  else
-  {
     vLz = ui_.setVelLz->text().toDouble();
-  }
-  if (ui_.setVelAx->text().isEmpty())
-  {
-    vAx = 0.0;
-  }
-  else
-  {
     vAx = ui_.setVelAx->text().toDouble();
-  }
-  if (ui_.setVelAy->text().isEmpty())
-  {
-    vAy = 0.0;
-  }
-  else
-  {
     vAy = ui_.setVelAy->text().toDouble();
-  }
-  if (ui_.setVelAz->text().isEmpty())
-  {
-    vAz = 0.0;
-  }
-  else
-  {
     vAz = ui_.setVelAz->text().toDouble();
-  }
-  if (ui_.setVelFrame->text().isEmpty())
-  {
-    frame = "uav_1_home";
-  }
-  else
-  {
     frame = ui_.setVelFrame->text().toStdString();
+
+    vel.header.frame_id = frame;
+    vel.twist.linear.x = vLx;
+    vel.twist.linear.y = vLy;
+    vel.twist.linear.z = vLz;
+    vel.twist.angular.x = vAx;
+    vel.twist.angular.y = vAy;
+    vel.twist.angular.z = vAz;
+
+    set_velocity.request.velocity = vel;
+    srvSetVelocity.call(set_velocity);
   }
-
-  vel.header.frame_id = frame;
-  vel.twist.linear.x = vLx;
-  vel.twist.linear.y = vLy;
-  vel.twist.linear.z = vLz;
-  vel.twist.angular.x = vAx;
-  vel.twist.angular.y = vAy;
-  vel.twist.angular.z = vAz;
-
-  set_velocity.request.velocity = vel;
-  srvSetVelocity.call(set_velocity);
 }
 
 void UalPlugin::press_stop()
